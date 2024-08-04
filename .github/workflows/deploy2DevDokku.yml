@@ -34,7 +34,7 @@ jobs:
         uses: dokku/github-action@master
         with:
           branch: ${{ github.ref_name }}
-          git_remote_url: ssh://dokku@159.112.177.194/dev-api-persona
+          git_remote_url: ssh://dokku@m4rc310.com.br/dev-api-persona
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Dokku
