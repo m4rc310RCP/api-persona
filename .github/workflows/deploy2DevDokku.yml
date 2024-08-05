@@ -17,15 +17,14 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code 
-        uses: actions/checkout@v4
-        with:
-        	fetch-depth: 0
-	  - name: Deploy to Dokku
-	  	uses: idoberko2/dokku-deploy-github-action@v1
-		with:
-		  ssh-private-key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
-		  dokku-host: m4rc310.com.br
-		  app-name: dev-api-persona
-		  git-push-flags: --force
+	steps:
+	  - uses: actions/checkout@v4
+	    with:
+	        fetch-depth: 0
+	  - id: deploy
+	    name: Deploy to dokku
+	    uses: idoberko2/dokku-deploy-github-action@v1
+	    with:
+	        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+	        dokku-host: 'm4rc310.com.br'
+	        app-name: 'dev-api-persona'
