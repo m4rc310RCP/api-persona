@@ -14,7 +14,7 @@ on:
 permissions:
   contents: read
 
-j  jobs:
+jobs:
     deploy:
       runs-on: ubuntu-latest
       steps:
