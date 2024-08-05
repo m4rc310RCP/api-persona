@@ -44,4 +44,6 @@ jobs:
             DOKKU_USER: dokku
             SSH_PRIVATE_KEY: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
           run: |
-            ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP && git push dokku ${{ github.ref_name }}"
+            ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") 
+			git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP
+			git push dokku ${{ github.ref_name }}"
