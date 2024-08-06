@@ -9,7 +9,6 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 @GraphQLApi
 public class StartupService extends MService{
 	
-	
 	@GraphQLQuery(name = "${query.test}")
 	public String test() {
 		return "OK" ;

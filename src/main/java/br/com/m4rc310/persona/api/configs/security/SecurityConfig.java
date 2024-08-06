@@ -23,6 +23,8 @@ public class SecurityConfig {
 	@Lazy
 	private PasswordEncoder pe;
 	
+	
+	
 	@Bean
 	@Lazy
 	MUserProvider loadUserProvider() {
