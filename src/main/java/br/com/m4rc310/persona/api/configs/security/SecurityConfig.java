@@ -11,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.com.m4rc310.gql.MUserProvider;
 import br.com.m4rc310.gql.dto.MUser;
@@ -27,35 +29,36 @@ public class SecurityConfig {
 	@Lazy
 	private PasswordEncoder pe;
 
-//    @Bean
-//    WebMvcConfigurer corsConfigurerV2() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**")
-//                        .allowedOrigins("*")
-//                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-//                        .allowedHeaders("*")
-//                        .allowCredentials(false)
-//                        .maxAge(3600);
-//            }
-//        };
-//    }
 
-	@Value("${graphql.endpoint:/graphql}")
-	private String graphqlEndpoint;
+	   @Bean
+	    WebMvcConfigurer corsConfigurerv2() {
+	        return new WebMvcConfigurer() {
+	            @Override
+	            public void addCorsMappings(CorsRegistry registry) {
+	                registry.addMapping("/graphql")
+	                        .allowedOrigins("http://localhost:5173", "https://dev-api-persona.m4rc310.com.br")
+	                        .allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
+	                        .allowedHeaders("Authorization", "Content-Type", "Accept", "Origin", "User-Agent", "DNT", "Cache-Control", "X-Mx-ReqToken", "Keep-Alive", "X-Requested-With", "If-Modified-Since")
+	                        .allowCredentials(true);
+	            }
+	        };
+	    }
+	
 
-	@Bean
-	CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-		source.registerCorsConfiguration(graphqlEndpoint, config);
-		return new CorsFilter(source);
-	}
+//	@Value("${graphql.endpoint:/graphql}")
+//	private String graphqlEndpoint;
+//
+//	@Bean
+//	CorsFilter corsFilter() {
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//		CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.addAllowedOrigin("*");
+//		config.addAllowedHeader("*");
+//		config.addAllowedMethod("*");
+//		source.registerCorsConfiguration(graphqlEndpoint, config);
+//		return new CorsFilter(source);
+//	}
 
 	@Bean
 	@Lazy
