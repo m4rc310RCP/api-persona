@@ -5,6 +5,7 @@ FROM maven:3.8-openjdk AS build
 WORKDIR /app/work/
 COPY pom.xml ./
 COPY src ./src
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN --mount=type=cache,target=/root/.m2  mvn clean package -Dmaven.test.skip
 
