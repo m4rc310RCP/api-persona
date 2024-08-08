@@ -32,6 +32,7 @@ public class StartupService extends MService{
 		return flux.publish(DtoHeartBeat.class, HEART_BEAT_KEY, defaulHeartBeat);
 	}
 	
+	
 	@Scheduled(cron = "*/10 * * * * *")
 	private void jobHeartBeat() {
 		log.info("Heart beath");
