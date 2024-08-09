@@ -35,7 +35,6 @@ public class StartupService extends MService{
 	
 	@Scheduled(cron = "*/10 * * * * *")
 	private void jobHeartBeat() {
-		log.info("Heart beath");
 		if (flux.inPublish(DtoHeartBeat.class, HEART_BEAT_KEY)) {
 			DtoHeartBeat hb = new DtoHeartBeat();
 			hb.setNumberServices(6);
