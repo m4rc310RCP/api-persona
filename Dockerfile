@@ -8,8 +8,16 @@ COPY src ./src
 
 RUN --mount=type=cache,target=/root/.m2  mvn clean package -Dmaven.test.skip
 
-FROM openjdk
+FROM openjdk:17 as app
 COPY --from=build /app/work/target/*-exec.jar /app/work/app.jar
-EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/work/app.jar"]
+FROM nginx:latest as nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+FROM openjdk:17 as final
+COPY --from=app /app/work/app.jar /app/work/app.jar
+COPY --from=nginx /etc/nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 8080 80
+
+CMD service nginx start && java -jar /app/work/app.jar
