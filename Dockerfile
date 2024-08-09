@@ -12,4 +12,6 @@ FROM openjdk
 COPY --from=build /app/work/target/*-exec.jar /app/work/app.jar
 EXPOSE 8080
 
+
+
 ENTRYPOINT ["java", "-jar", "/app/work/app.jar"]
