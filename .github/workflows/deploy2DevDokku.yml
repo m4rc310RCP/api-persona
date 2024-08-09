@@ -37,7 +37,7 @@ jobs:
           run: |
             ssh-keyscan -H "m4rc310.com.br,159.112.177.194" >> ~/.ssh/known_hosts
 
-        - name: Deploy to Dokku
+        - name: Deploy to Dokku - v1
           env:
             DOKKU_HOST: m4rc310.com.br
             DOKKU_APP: dev-api-persona
