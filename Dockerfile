@@ -16,11 +16,10 @@ FROM nginx:alpine
 
 WORKDIR /etc/nginx
 COPY ./nginx.conf ./conf.d/default.conf
-EXPOSE 80
-ENTRYPOINT [ "nginx" ]
-CMD [ "-g", "daemon off;" ]
-
 
 EXPOSE 8080
+
+ENTRYPOINT [ "nginx" ]
+CMD [ "-g", "daemon off;" ]
 
 ENTRYPOINT ["java", "-jar", "/app/work/app.jar"]
