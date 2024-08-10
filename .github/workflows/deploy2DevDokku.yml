@@ -30,11 +30,11 @@ jobs:
             git_remote_url: ssh://dokku@m4rc310.com.br/dev-api-persona
             ssh_private_key: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
 
-        - name: Ensure SSH directory exists
-          run: mkdir -p ~/.ssh
-
         - name: Add Dokku host to known_hosts
           run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H "m4rc310.com.br,159.112.177.194" >> ~/.ssh/known_hosts
 
         - name: Deploy to Dokku - v1
@@ -48,4 +48,4 @@ jobs:
 
         - name: Config CORS
           run: | 
-            ssh dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
+            ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
