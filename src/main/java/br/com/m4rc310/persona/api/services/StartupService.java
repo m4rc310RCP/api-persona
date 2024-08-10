@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StartupService extends MService{
 	
 	public static final String HEART_BEAT_KEY = "heart-beat-key";
-	private final DtoHeartBeat hb = new DtoHeartBeat();
+	private DtoHeartBeat hb;
 	
 	
 	@GraphQLQuery(name = "${query.test}")
@@ -37,9 +37,11 @@ public class StartupService extends MService{
 	@Scheduled(cron = "*/10 * * * * *")
 	private void jobHeartBeat() {
 		if (flux.inPublish(DtoHeartBeat.class, HEART_BEAT_KEY)) {
-			Integer number = hb.getNumberServices();
-			number = number == null? 0 : number;
-			hb.setNumberServices(number++);
+			if (hb == null) {
+				hb = new DtoHeartBeat();
+				hb.setNumberServices(0);
+			}
+			hb.setNumberServices(hb.getNumberServices() + 1);
 			try {
 				flux.callPublish(HEART_BEAT_KEY, hb);
 			} catch (Exception e) {
