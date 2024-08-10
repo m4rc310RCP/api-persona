@@ -47,5 +47,5 @@ jobs:
             ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP && git push --force dokku ${{ github.ref_name }}"
 
         - name: Config CORS
-          run: |
-		  	ssh dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
+          run: | 
+            ssh dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
