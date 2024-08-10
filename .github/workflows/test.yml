@@ -20,7 +20,7 @@ jobs:
           echo "${{ secrets.DOKKU_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_hosts
-
-	  - name: Copy post-deploy script to server
-	    run: |
-	      scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ~/workflows/cors.sh dokku@m4rc310.com.br:~/scripts/post-deploy
+      
+      - name: Copy post-deploy script to server
+        run: |
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ~/workflows/cors.sh dokku@m4rc310.com.br:~/scripts/post-deploy
