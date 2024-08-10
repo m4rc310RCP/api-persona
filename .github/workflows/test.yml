@@ -17,10 +17,10 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_host
+          ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_hosts
 
       - name: Run post-deploy script on remote server
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-            ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'"
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
