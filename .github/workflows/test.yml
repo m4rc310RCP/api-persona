@@ -23,4 +23,4 @@ jobs:
       
       - name: Copy post-deploy script to server
         run: |
-          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ~/workflows/cors.sh dokku@m4rc310.com.br:~/scripts/post-deploy
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'dokku run dev-api-persona bash ~/scripts/post-deploy'

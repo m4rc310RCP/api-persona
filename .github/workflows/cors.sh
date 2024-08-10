@@ -2,7 +2,7 @@
 
 # Parar o Nginx
 echo "Parando o Nginx..."
-#dokku nginx:stop dev-api-persona
+dokku nginx:stop dev-api-persona
 
 # Adicionar configuração CORS ao nginx.conf
 echo "Adicionando configuração CORS ao nginx.conf..."
@@ -37,6 +37,6 @@ echo "Configuração CORS adicionada com sucesso."
 
 # Iniciar o Nginx
 echo "Iniciando o Nginx..."
-#dokku nginx:start dev-api-persona
+dokku nginx:start dev-api-persona
 
 echo "Processo concluído."
