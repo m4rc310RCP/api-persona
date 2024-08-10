@@ -15,10 +15,10 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_hosts
 
-      - name: Execute post-deploy script
+      - name: Test SSH Connection
         run: |
-          ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
+          ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'echo "SSH connection successful"'
