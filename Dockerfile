@@ -12,14 +12,14 @@ FROM openjdk
 COPY --from=build /app/work/target/*-exec.jar /app/work/app.jar
 
 #COPY nginx.conf /etc/nginx/nginx.conf
-FROM nginx:alpine
+#FROM nginx:alpine
 
 WORKDIR /etc/nginx
 COPY ./nginx.conf ./conf.d/default.conf
 
-EXPOSE 8080
+#EXPOSE 8080
 
-ENTRYPOINT [ "nginx" ]
-CMD [ "-g", "daemon off;" ]
+#ENTRYPOINT [ "nginx" ]
+#CMD [ "-g", "daemon off;" ]
 
 ENTRYPOINT ["java", "-jar", "/app/work/app.jar"]
