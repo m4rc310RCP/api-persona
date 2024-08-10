@@ -21,5 +21,4 @@ COPY ./nginx.conf ./conf.d/default.conf
 
 #ENTRYPOINT [ "nginx" ]
 #CMD [ "-g", "daemon off;" ]
-
 ENTRYPOINT ["java", "-jar", "/app/work/app.jar"]
