@@ -45,3 +45,10 @@ jobs:
             SSH_PRIVATE_KEY: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
           run: |
             ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP && git push --force dokku ${{ github.ref_name }}"
+
+		- name: Config CORS
+		  run: |
+		  	ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && ssh -o StrictHostKeyChecking=no dokku@$DOKKU_HOST 'bash ~/scripts/post-deploy'"
+		    	
+			
+			
