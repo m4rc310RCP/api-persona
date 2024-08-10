@@ -1,15 +1,20 @@
 package br.com.m4rc310.persona.api.configs.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.com.m4rc310.gql.MUserProvider;
 import br.com.m4rc310.gql.dto.MUser;
@@ -24,22 +29,48 @@ public class SecurityConfig {
 	@Autowired
 	@Lazy
 	private PasswordEncoder pe;
-
-	   @Bean
-	    WebMvcConfigurer corsConfigurerv2() {
-	        return new WebMvcConfigurer() {
-	            @Override
-	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("/graphql")
-	                        .allowedOrigins("http://localhost:5173", "https://dev-api-persona.m4rc310.com.br")
-	                        .allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
-	                        .allowedHeaders("Authorization", "Content-Type", "Accept", "Origin", "User-Agent", "DNT", "Cache-Control", "X-Mx-ReqToken", "Keep-Alive", "X-Requested-With", "If-Modified-Since")
-	                        .allowCredentials(true);
-	            }
-	        };
-	    }
 	
+	
+	
+	
+//	@Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        CorsConfiguration corsConfig = new CorsConfiguration();
+//        corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
+//        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
+//        corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+//        corsConfig.setAllowCredentials(true);
+//        corsConfig.setMaxAge(1728000L);
+////
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/graphql", corsConfig);
+//        CorsFilter corsFilter = new CorsFilter(source);
+////
+        http.cors(cors ->{
+        	cors.disable();
+        });
+//        
+//        http.addFilter(corsFilter);
+//        
+        http.csrf(csrf -> {
+        	csrf.disable();
+        });
 
+        
+
+        return http.build();
+    }
+//	@Bean
+//	WebMvcConfigurer corsConfigurer2() {
+//		return new WebMvcConfigurer() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				log.info("----> " + registry);
+//				registry.addMapping("/**").allowedOrigins("*");
+//				registry.addMapping("/**").allowedMethods("*");
+//			}
+//		};
+//	}
 //	@Value("${graphql.endpoint:/graphql}")
 //	private String graphqlEndpoint;
 //
