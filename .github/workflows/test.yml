@@ -19,6 +19,8 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_hosts
 
-      - name: Test SSH Connection
-        run: |
-          ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'echo "SSH connection successful"'
+	  - name: Run post-deploy script on remote server
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          run: |
+            ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'"
