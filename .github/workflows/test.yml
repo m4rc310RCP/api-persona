@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches: 
+      - release/*
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_hosts
+
+      - name: Execute post-deploy script
+        run: |
+          ssh -o StrictHostKeyChecking=no dokku@m4rc310.com.br 'bash ~/scripts/post-deploy'
