@@ -21,8 +21,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H m4rc310.com.br >> ~/.ssh/known_hosts
 
-      - name: Run post-deploy script on remote server
-        run: |
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_rsa
-          ssh dokku@m4rc310.com.br './scripts/post-deploy'
+	  - name: Copy post-deploy script to server
+	    run: |
+	      scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ~/workflows/cors.sh dokku@m4rc310.com.br:~/scripts/post-deploy
