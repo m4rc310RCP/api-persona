@@ -10,6 +10,10 @@ RUN --mount=type=cache,target=/root/.m2  mvn clean package -Dmaven.test.skip
 
 FROM openjdk
 COPY --from=build /app/work/target/*-exec.jar /app/work/app.jar
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+
 EXPOSE 8080
 
 
