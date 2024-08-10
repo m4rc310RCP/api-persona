@@ -37,14 +37,14 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H "m4rc310.com.br,159.112.177.194" >> ~/.ssh/known_hosts
 
-        - name: Deploy to Dokku - v1
-          env:
-            DOKKU_HOST: m4rc310.com.br
-            DOKKU_APP: dev-api-persona
-            DOKKU_USER: dokku
-            SSH_PRIVATE_KEY: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
-          run: |
-            ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP && git push --force dokku ${{ github.ref_name }}"
+        # - name: Deploy to Dokku - v1
+        #   env:
+        #     DOKKU_HOST: m4rc310.com.br
+        #     DOKKU_APP: dev-api-persona
+        #     DOKKU_USER: dokku
+        #     SSH_PRIVATE_KEY: ${{ secrets.DOKKU_SSH_PRIVATE_KEY }}
+        #   run: |
+        #     ssh-agent bash -c "ssh-add <(echo \"$SSH_PRIVATE_KEY\") && git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP && git push --force dokku ${{ github.ref_name }}"
 
         - name: Config CORS
           run: | 
