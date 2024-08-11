@@ -1,5 +1,7 @@
 package br.com.m4rc310.persona.api.services;
 
+import java.util.Date;
+
 import org.reactivestreams.Publisher;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,6 +44,7 @@ public class StartupService extends MService{
 				hb.setNumberServices(0);
 			}
 			hb.setNumberServices(hb.getNumberServices() + 1);
+			hb.setDateUpdate(new Date());
 			try {
 				flux.callPublish(HEART_BEAT_KEY, hb);
 			} catch (Exception e) {
