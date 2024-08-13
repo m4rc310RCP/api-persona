@@ -1,6 +1,7 @@
 package br.com.m4rc310.persona.api.services;
 
 import java.util.Date;
+import java.util.List;
 
 import org.reactivestreams.Publisher;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -37,39 +38,50 @@ public class StartupService extends MService {
 			hb.setNumberServices(0);
 			hb.setDateUpdate(new Date());
 		}
-		return flux.publish(DtoHeartBeat.class, getDeviceId(sid), hb);
-	}
-
-
-	private String getDeviceId(String sid) {
-		return String.format("%s-%s", HEART_BEAT_KEY, sid);
+		return flux.publish(DtoHeartBeat.class, sid, hb);
 	}
 
 	@Scheduled(cron = "*/10 * * * * *")
 	private void jobHeartBeat() throws Exception {
-		if (flux.getSizeRegistries(DtoHeartBeat.class) > 0) {
-			if (hb == null) {
-				hb = new DtoHeartBeat();
-				hb.setNumberServices(0);
+		Class<DtoHeartBeat> type = DtoHeartBeat.class;
+		if (flux.getSizeRegistries(type) > 0) {
+			
+			if (flux.getSizeRegistries(DtoHeartBeat.class) > 0) {
+				
+//				for (String key : flux.getKeys(type)) {
+					if (hb == null) {
+						hb = new DtoHeartBeat();
+						hb.setNumberServices(0);
+					}
+					hb.setNumberServices(hb.getNumberServices() + 1);
+					hb.setDateUpdate(new Date());
+////				
+//					//System.out.println(key);
+//					
+//					flux.callPublish(DtoHeartBeat.class, key, hb);					
+//				}
+				flux.callPublish(DtoHeartBeat.class, hb);
+//				
 			}
-			hb.setNumberServices(hb.getNumberServices() + 1);
-			hb.setDateUpdate(new Date());
-
-			flux.callPublish(DtoHeartBeat.class, hb);
+//			
 		}
+		
+		//log.info("-> " + flux.getKeys(DtoHeartBeat.class));
+		
+
+//			flux.callPublish(DtoHeartBeat.class, hb);
+//		}		
+		
 	}
-	
+
 	@GraphQLQuery(name = "${query.service.info}", description = "${desc.query.service.info}")
 	public DtoServiceInfo getInfo() {
 		return new DtoServiceInfo();
 	}
-	
+
 	@GraphQLQuery(name = "${amount.device.connected}", description = "${desc.amount.device.connected}")
 	public Integer getConnectedDevices(@GraphQLContext DtoServiceInfo info) {
 		return flux.getSizeRegistries(DtoHeartBeat.class);
 	}
-	
-	
-	
 
 }
