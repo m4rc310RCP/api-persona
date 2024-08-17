@@ -1,7 +1,6 @@
 package br.com.m4rc310.persona.api.services;
 
 import java.util.Date;
-import java.util.List;
 
 import org.reactivestreams.Publisher;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -45,33 +44,19 @@ public class StartupService extends MService {
 	private void jobHeartBeat() throws Exception {
 		Class<DtoHeartBeat> type = DtoHeartBeat.class;
 		if (flux.getSizeRegistries(type) > 0) {
-			
-			if (flux.getSizeRegistries(DtoHeartBeat.class) > 0) {
-				
-//				for (String key : flux.getKeys(type)) {
-					if (hb == null) {
-						hb = new DtoHeartBeat();
-						hb.setNumberServices(0);
-					}
-					hb.setNumberServices(hb.getNumberServices() + 1);
-					hb.setDateUpdate(new Date());
-////				
-//					//System.out.println(key);
-//					
-//					flux.callPublish(DtoHeartBeat.class, key, hb);					
-//				}
-				flux.callPublish(DtoHeartBeat.class, hb);
-//				
-			}
-//			
-		}
-		
-		//log.info("-> " + flux.getKeys(DtoHeartBeat.class));
-		
 
-//			flux.callPublish(DtoHeartBeat.class, hb);
-//		}		
-		
+			if (flux.getSizeRegistries(DtoHeartBeat.class) > 0) {
+
+				if (hb == null) {
+					hb = new DtoHeartBeat();
+					hb.setNumberServices(0);
+				}
+				hb.setNumberServices(hb.getNumberServices() + 1);
+				hb.setDateUpdate(new Date());
+				flux.callPublish(DtoHeartBeat.class, hb);
+			}
+		}
+
 	}
 
 	@GraphQLQuery(name = "${query.service.info}", description = "${desc.query.service.info}")
