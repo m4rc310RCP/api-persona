@@ -44,4 +44,4 @@ jobs:
             username: dokku
             password: ..
             port: 22
-            script: whoami
+            script: bash ~/scripts/post-deploy
