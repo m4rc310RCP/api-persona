@@ -36,7 +36,7 @@ jobs:
             echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
             ssh-keyscan -H "m4rc310.com.br,159.112.177.194" >> ~/.ssh/known_hosts
-			
+
         - name: Cor's update
           uses: appleboy/ssh-action@v1.0.3
           with:
