@@ -18,8 +18,8 @@ jobs:
           password: ..
           port: 22
           script: |
-          whoami
-          ls -al
+            whoami
+            ls -al
 #      - name: Checkout code
 #        uses: actions/checkout@v3
 #
