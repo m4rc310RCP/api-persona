@@ -9,7 +9,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Cor's update
         uses: appleboy/ssh-action@v1.0.3
