@@ -40,8 +40,8 @@ jobs:
         - name: Cor's update
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: m4rc310.com.br
-            username: dokku
-            password: ..
+            host: ${{ secrets.DOKKU_HOST }}
+            username: ${{ secrets.DOKKU_USER }}
+            password: ${{ secrets.DOKKU_PSW }}
             port: 22
             script: bash ~/scripts/post-deploy
