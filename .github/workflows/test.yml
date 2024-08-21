@@ -20,6 +20,7 @@ jobs:
           script: |
             whoami
             ls -al
+			bash ~/scripts/post-deploy
 #      - name: Checkout code
 #        uses: actions/checkout@v3
 #
