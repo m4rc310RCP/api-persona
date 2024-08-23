@@ -1,5 +1,7 @@
 package br.com.m4rc310.persona.api.services;
 
-public class MService extends br.com.m4rc310.gql.services.MService {
+import br.com.m4rc310.persona.api.i18n.IConsts;
+
+public class MService extends br.com.m4rc310.gql.services.MService implements IConsts {
 
 }

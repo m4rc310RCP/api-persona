@@ -25,12 +25,12 @@ public class StartupService extends MService {
 	public static final String HEART_BEAT_KEY = "heart-beat-key";
 	private DtoHeartBeat hb;
 
-	@GraphQLQuery(name = "${query.test}")
+	@GraphQLQuery(name = QUERY$test, description = DESC$query_test)
 	public String test() {
 		return "OK";
 	}
 
-	@GraphQLSubscription(name = "${subscription.heart.beat}")
+	@GraphQLSubscription(name = SUBSCRIPTION$heart_beat, description = DESC$subscription_heart_beat)
 	public Publisher<DtoHeartBeat> heartBeat(@GraphQLArgument(name = "${id.device}") String sid) {
 		if (hb == null) {
 			hb = new DtoHeartBeat();
@@ -59,14 +59,19 @@ public class StartupService extends MService {
 
 	}
 
-	@GraphQLQuery(name = "${query.service.info}", description = "${desc.query.service.info}")
+	@GraphQLQuery(name = QUERY$service_info, description = DESC$query_service_info)
 	public DtoServiceInfo getInfo() {
 		return new DtoServiceInfo();
 	}
 
-	@GraphQLQuery(name = "${amount.device.connected}", description = "${desc.amount.device.connected}")
+	@GraphQLQuery(name = AMOUNT$device_connected, description = DESC$amount_device_connected)
 	public Integer getConnectedDevices(@GraphQLContext DtoServiceInfo info) {
 		return flux.getSizeRegistries(DtoHeartBeat.class);
+	}
+	
+	@GraphQLQuery(name=NUMBER$ip_client, description=DESC$number_ip_client)
+	public String getClientIp(@GraphQLContext DtoServiceInfo info) {
+		return flux.getIPClient();
 	}
 
 }
