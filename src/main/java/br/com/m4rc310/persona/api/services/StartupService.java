@@ -3,12 +3,14 @@ package br.com.m4rc310.persona.api.services;
 import java.util.Date;
 
 import org.reactivestreams.Publisher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import br.com.m4rc310.persona.api.dto.DtoHeartBeat;
 import br.com.m4rc310.persona.api.dto.DtoServiceInfo;
+import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -23,7 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 public class StartupService extends MService {
 
 	public static final String HEART_BEAT_KEY = "heart-beat-key";
+	public static final String WEATCHER_KEY = "weatcher-key";
 	private DtoHeartBeat hb;
+
+	@Autowired
+	private WeatherService weatherService;
 
 	@GraphQLQuery(name = QUERY$test, description = DESC$query_test)
 	public String test() {
@@ -31,7 +37,8 @@ public class StartupService extends MService {
 	}
 
 	@GraphQLSubscription(name = SUBSCRIPTION$heart_beat, description = DESC$subscription_heart_beat)
-	public Publisher<DtoHeartBeat> heartBeat(@GraphQLArgument(name = "${id.device}") String sid) {
+	public Publisher<DtoHeartBeat> heartBeat(
+			@GraphQLArgument(name = ID$device, description = DESC$id_device) String sid) {
 		if (hb == null) {
 			hb = new DtoHeartBeat();
 			hb.setNumberServices(0);
@@ -40,23 +47,30 @@ public class StartupService extends MService {
 		return flux.publish(DtoHeartBeat.class, sid, hb);
 	}
 
+	@GraphQLSubscription(name = SUBSCRIPTION$weacher, description = DESC$subscription_weacher)
+	public Publisher<DtoWeatcherData> subscribeWeatcher(
+			@GraphQLArgument(name = ID$device, description = DESC$id_device) String deviceId) throws Exception {
+		DtoWeatcherData weatherFrom = weatherService.getWeatherFrom();
+		String sid = String.format("%s-%s", WEATCHER_KEY, deviceId);
+		return flux.publish(DtoWeatcherData.class, sid, weatherFrom);
+	}
+
 	@Scheduled(cron = "*/10 * * * * *")
 	private void jobHeartBeat() throws Exception {
-		Class<DtoHeartBeat> type = DtoHeartBeat.class;
-		if (flux.getSizeRegistries(type) > 0) {
-
-			if (flux.getSizeRegistries(DtoHeartBeat.class) > 0) {
-
-				if (hb == null) {
-					hb = new DtoHeartBeat();
-					hb.setNumberServices(0);
-				}
-				hb.setNumberServices(hb.getNumberServices() + 1);
-				hb.setDateUpdate(new Date());
-				flux.callPublish(DtoHeartBeat.class, hb);
+		if (flux.getSizeRegistries(DtoHeartBeat.class) > 0) {
+			if (hb == null) {
+				hb = new DtoHeartBeat();
+				hb.setNumberServices(0);
 			}
+			hb.setNumberServices(hb.getNumberServices() + 1);
+			hb.setDateUpdate(new Date());
+			flux.callPublish(DtoHeartBeat.class, hb);			
 		}
-
+		
+		if (flux.getSizeRegistries(DtoWeatcherData.class) > 0) {
+			DtoWeatcherData weather = weatherService.getWeatherFrom();
+			flux.callPublish(DtoWeatcherData.class, weather);			
+		}
 	}
 
 	@GraphQLQuery(name = QUERY$service_info, description = DESC$query_service_info)
@@ -68,8 +82,8 @@ public class StartupService extends MService {
 	public Integer getConnectedDevices(@GraphQLContext DtoServiceInfo info) {
 		return flux.getSizeRegistries(DtoHeartBeat.class);
 	}
-	
-	@GraphQLQuery(name=NUMBER$ip_client, description=DESC$number_ip_client)
+
+	@GraphQLQuery(name = NUMBER$ip_client, description = DESC$number_ip_client)
 	public String getClientIp(@GraphQLContext DtoServiceInfo info) {
 		return flux.getIPClient();
 	}
