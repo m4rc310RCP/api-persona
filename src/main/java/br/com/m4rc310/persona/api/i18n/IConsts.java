@@ -18,12 +18,20 @@ public interface IConsts {
 // @GraphQLQuery(name=CODE$icon, description=DESC$code_icon)
 	public static final String CODE$icon                    = "${code.icon}";
 //--------------------------------------------------
+// @GraphQLQuery(name=DATE$hour_sunrise, description=DESC$date_hour_sunrise)
+	public static final String DATE$hour_sunrise            = "${date.hour.sunrise}";
+//--------------------------------------------------
+// @GraphQLQuery(name=DATE$hour_sunset, description=DESC$date_hour_sunset)
+	public static final String DATE$hour_sunset             = "${date.hour.sunset}";
+//--------------------------------------------------
 // @GraphQLQuery(name=DATE$update, description=DESC$date_update)
 	public static final String DATE$update                  = "${date.update}";
 	public static final String DESC$amount_device_connected = "${desc.amount.device.connected}";
 	public static final String DESC$amount_rain             = "${desc.amount.rain}";
 	public static final String DESC$amount_temperature      = "${desc.amount.temperature}";
 	public static final String DESC$code_icon               = "${desc.code.icon}";
+	public static final String DESC$date_hour_sunrise       = "${desc.date.hour.sunrise}";
+	public static final String DESC$date_hour_sunset        = "${desc.date.hour.sunset}";
 	public static final String DESC$date_update             = "${desc.date.update}";
 	public static final String DESC$describe_weather        = "${desc.describe.weather}";
 	public static final String DESC$id_device               = "${desc.id.device}";
@@ -42,7 +50,6 @@ public interface IConsts {
 	public static final String DESC$subscription_weacher    = "${desc.subscription.weacher}";
 	public static final String DESC$type_heart_beat         = "${desc.type.heart.beat}";
 	public static final String DESC$type_service_info       = "${desc.type.service.info}";
-	public static final String DESCRIBE$weather             = "${describe.weather}";
 //--------------------------------------------------
 // @GraphQLQuery(name=ID$device, description=DESC$id_device)
 	public static final String ID$device                    = "${id.device}";

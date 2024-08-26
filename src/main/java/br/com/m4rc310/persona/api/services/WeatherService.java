@@ -1,8 +1,7 @@
 package br.com.m4rc310.persona.api.services;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -11,6 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import br.com.m4rc310.gql.mappers.annotations.MDate;
+import br.com.m4rc310.persona.api.dto.weather.DtoGeolocation;
 import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
 import br.com.m4rc310.weather.dto.MWeather;
 import br.com.m4rc310.weather.dto.MWeatherCurrent.Rain;
@@ -29,26 +30,18 @@ public class WeatherService extends MService {
 
 	private static final String CACHE_WEATCHER_KEY = "cache_weatcher_key";
 	
-	private final List<BigDecimal> GEO = Arrays.asList(BigDecimal.valueOf(-24.046), BigDecimal.valueOf(-52.3838));
 
 	@Autowired
 	private MWeatherService weatherService;
-
-	// @Cacheable(CACHE_WEATCHER_KEY)
-	// @GraphQLQuery(name = QUERY$weather, description = DESC$query_weather)
-	public DtoWeatcherData getWeather() throws Exception {
-		log.info("from api");
-		MWeather data = weatherService.getMWeather(GEO.get(0), GEO.get(1));
-		
-		
-		return DtoWeatcherData.from(data);
-	}
+	
+	@Autowired
+	private CacheService cacheService;
 
 	@Cacheable(CACHE_WEATCHER_KEY)
 	@GraphQLQuery(name = QUERY$weather, description = DESC$query_weather)
 	public DtoWeatcherData getWeatherFrom() throws Exception {
-		log.info("from api");
-		MWeather data = weatherService.getMWeather(GEO.get(0), GEO.get(1));
+		DtoGeolocation geo = cacheService.getGeolocationFromIp(flux.getIPClient());
+		MWeather data = weatherService.getMWeather(geo.getLat(), geo.getLon());
 		return DtoWeatcherData.from(data);
 	}
 
@@ -107,6 +100,27 @@ public class WeatherService extends MService {
 		}
 		return detail;
 	}
+	
+	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@GraphQLQuery(name="${date.hour.sunset}")
+	public Long getDateSunset(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getDateSunSet();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@GraphQLQuery(name="${date.hour.sunrise}")
+	public Long getDateSunrise(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getDateSunRise();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	
 	
 
