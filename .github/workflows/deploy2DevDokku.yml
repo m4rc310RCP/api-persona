@@ -31,6 +31,7 @@ jobs:
           ssh-keyscan -H "m4rc310.com.br,159.112.177.194" >> ~/.ssh/known_hosts
   enable-cors:
     needs: deploy
+    runs-on: ubuntu-latest
     steps:
       - name: Cor's update
         uses: appleboy/ssh-action@v1.0.3
