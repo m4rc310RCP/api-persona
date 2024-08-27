@@ -40,6 +40,7 @@ public interface IConsts {
 	public static final String DESC$describe_weather        = "${desc.describe.weather}";
 	public static final String DESC$id_device               = "${desc.id.device}";
 	public static final String DESC$info_weather            = "${desc.info.weather}";
+	public static final String DESC$name_city               = "${desc.name.city}";
 	public static final String DESC$number_device_connected = "${desc.number.device.connected}";
 	public static final String DESC$number_ip_client        = "${desc.number.ip.client}";
 	public static final String DESC$number_lat              = "${desc.number.lat}";
@@ -60,6 +61,9 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLQuery(name=INFO$weather, description=DESC$info_weather)
 	public static final String INFO$weather                 = "${info.weather}";
+//--------------------------------------------------
+// @GraphQLQuery(name=NAME$city, description=DESC$name_city)
+	public static final String NAME$city                    = "${name.city}";
 //--------------------------------------------------
 // @GraphQLQuery(name=NUMBER$ip_client, description=DESC$number_ip_client)
 	public static final String NUMBER$ip_client             = "${number.ip.client}";

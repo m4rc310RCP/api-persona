@@ -1,7 +1,6 @@
 package br.com.m4rc310.persona.api.services;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -10,8 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import br.com.m4rc310.gql.location.dto.DtoGeolocation;
 import br.com.m4rc310.gql.mappers.annotations.MDate;
-import br.com.m4rc310.persona.api.dto.weather.DtoGeolocation;
 import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
 import br.com.m4rc310.weather.dto.MWeather;
 import br.com.m4rc310.weather.dto.MWeatherCurrent.Rain;
@@ -41,8 +40,11 @@ public class WeatherService extends MService {
 	@GraphQLQuery(name = QUERY$weather, description = DESC$query_weather)
 	public DtoWeatcherData getWeatherFrom() throws Exception {
 		DtoGeolocation geo = cacheService.getGeolocationFromIp(flux.getIPClient());
-		MWeather data = weatherService.getMWeather(geo.getLat(), geo.getLon());
-		return DtoWeatcherData.from(data);
+		MWeather weather = weatherService.getMWeather(geo.getLatitude(), geo.getLongitude());
+		DtoWeatcherData data = new DtoWeatcherData();
+		data.setGeolocation(geo);
+		data.setWeather(weather);;
+		return data;
 	}
 
 	@Scheduled(cron = "0 */15 * * * *")
@@ -130,9 +132,13 @@ public class WeatherService extends MService {
 		}
 	}
 	
+	 @GraphQLQuery(name=NAME$city, description=DESC$name_city)
+	public String getCityNameWeatcher(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getGeolocation().getCity();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
-	
-	
-	
-
 }

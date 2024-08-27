@@ -30,7 +30,8 @@
 		<url />
 	</scm>
 	<properties>
-		<br-com-m4rc310-starter-version>LATEST</br-com-m4rc310-starter-version>
+<!--		<br-com-m4rc310-starter-version>1.0.0-SNAPSHOT</br-com-m4rc310-starter-version>-->
+		<br-com-m4rc310-starter-version>1.0.29</br-com-m4rc310-starter-version>
 		<java.version>17</java.version>
 	</properties>
 
@@ -50,7 +51,7 @@
 		<dependency>
 			<groupId>br.com.m4rc310</groupId>
 			<artifactId>br-com-m4rc310-starter</artifactId>
-			<version>${br-com-m4rc310-starter-version}</version>
+			<version>1.0.29</version>
 		</dependency>
 
 		<dependency>
