@@ -6,6 +6,9 @@ import br.com.m4rc310.gql.annotations.MConstants;
 @MConstants
 public interface IConsts {
 //--------------------------------------------------
+// @GraphQLQuery(name=AMONT$speed_wind, description=DESC$amont_speed_wind)
+	public static final String AMONT$speed_wind             = "${amont.speed.wind}";
+//--------------------------------------------------
 // @GraphQLQuery(name=AMOUNT$device_connected, description=DESC$amount_device_connected)
 	public static final String AMOUNT$device_connected      = "${amount.device.connected}";
 //--------------------------------------------------
@@ -26,6 +29,7 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLQuery(name=DATE$update, description=DESC$date_update)
 	public static final String DATE$update                  = "${date.update}";
+	public static final String DESC$amont_speed_wind        = "${desc.amont.speed.wind}";
 	public static final String DESC$amount_device_connected = "${desc.amount.device.connected}";
 	public static final String DESC$amount_rain             = "${desc.amount.rain}";
 	public static final String DESC$amount_temperature      = "${desc.amount.temperature}";

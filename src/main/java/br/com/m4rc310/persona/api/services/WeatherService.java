@@ -102,7 +102,7 @@ public class WeatherService extends MService {
 	}
 	
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name="${date.hour.sunset}")
+	@GraphQLQuery(name=DATE$hour_sunset, description=DESC$date_hour_sunset)
 	public Long getDateSunset(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getDateSunSet();
@@ -112,7 +112,7 @@ public class WeatherService extends MService {
 	}
 	
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name="${date.hour.sunrise}")
+	@GraphQLQuery(name=DATE$hour_sunrise, description=DESC$date_hour_sunrise)
 	public Long getDateSunrise(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getDateSunRise();
@@ -120,6 +120,17 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
+	
+	@GraphQLQuery(name=AMONT$speed_wind, description=DESC$amont_speed_wind)
+	public BigDecimal getSpeedWind(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getSpeedWind();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
 	
 	
 	
