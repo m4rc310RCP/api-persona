@@ -39,7 +39,11 @@ public class WeatherService extends MService {
 	@Cacheable(CACHE_WEATCHER_KEY)
 	@GraphQLQuery(name = QUERY$weather, description = DESC$query_weather)
 	public DtoWeatcherData getWeatherFrom() throws Exception {
-		DtoGeolocation geo = cacheService.getGeolocationFromIp(flux.getIPClient());
+		String ip = flux.getIPClient();
+		if ("0:0:0:0:0:0:0:1".equals(ip)) {
+			ip = "143.0.116.110";
+		}
+		DtoGeolocation geo = cacheService.getGeolocationFromIp(ip);
 		MWeather weather = weatherService.getMWeather(geo.getLatitude(), geo.getLongitude());
 		DtoWeatcherData data = new DtoWeatcherData();
 		data.setGeolocation(geo);
