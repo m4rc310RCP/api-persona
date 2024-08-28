@@ -136,6 +136,24 @@ public class WeatherService extends MService {
 		}
 	}
 	
+	 @GraphQLQuery(name=AMOUNT$humidit, description=DESC$amount_humidit)
+	public BigDecimal getHumidity(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getHumidity();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@GraphQLQuery(name=INFO$main, description=DESC$info_main)
+	public String getMain(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getWeather().get(0).getMain();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	 @GraphQLQuery(name=NAME$city, description=DESC$name_city)
 	public String getCityNameWeatcher(@GraphQLContext DtoWeatcherData data) {
 		try {

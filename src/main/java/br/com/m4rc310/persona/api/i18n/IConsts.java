@@ -12,6 +12,9 @@ public interface IConsts {
 // @GraphQLQuery(name=AMOUNT$device_connected, description=DESC$amount_device_connected)
 	public static final String AMOUNT$device_connected      = "${amount.device.connected}";
 //--------------------------------------------------
+// @GraphQLQuery(name=AMOUNT$humidit, description=DESC$amount_humidit)
+	public static final String AMOUNT$humidit               = "${amount.humidit}";
+//--------------------------------------------------
 // @GraphQLQuery(name=AMOUNT$rain, description=DESC$amount_rain)
 	public static final String AMOUNT$rain                  = "${amount.rain}";
 //--------------------------------------------------
@@ -31,6 +34,7 @@ public interface IConsts {
 	public static final String DATE$update                  = "${date.update}";
 	public static final String DESC$amont_speed_wind        = "${desc.amont.speed.wind}";
 	public static final String DESC$amount_device_connected = "${desc.amount.device.connected}";
+	public static final String DESC$amount_humidit          = "${desc.amount.humidit}";
 	public static final String DESC$amount_rain             = "${desc.amount.rain}";
 	public static final String DESC$amount_temperature      = "${desc.amount.temperature}";
 	public static final String DESC$code_icon               = "${desc.code.icon}";
@@ -39,6 +43,7 @@ public interface IConsts {
 	public static final String DESC$date_update             = "${desc.date.update}";
 	public static final String DESC$describe_weather        = "${desc.describe.weather}";
 	public static final String DESC$id_device               = "${desc.id.device}";
+	public static final String DESC$info_main               = "${desc.info.main}";
 	public static final String DESC$info_weather            = "${desc.info.weather}";
 	public static final String DESC$name_city               = "${desc.name.city}";
 	public static final String DESC$number_device_connected = "${desc.number.device.connected}";
@@ -58,6 +63,9 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLQuery(name=ID$device, description=DESC$id_device)
 	public static final String ID$device                    = "${id.device}";
+//--------------------------------------------------
+// @GraphQLQuery(name=INFO$main, description=DESC$info_main)
+	public static final String INFO$main                    = "${info.main}";
 //--------------------------------------------------
 // @GraphQLQuery(name=INFO$weather, description=DESC$info_weather)
 	public static final String INFO$weather                 = "${info.weather}";
