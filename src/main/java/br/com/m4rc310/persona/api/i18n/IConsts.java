@@ -32,6 +32,9 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLQuery(name=DATE$update, description=DESC$date_update)
 	public static final String DATE$update                  = "${date.update}";
+//--------------------------------------------------
+// @GraphQLQuery(name=DATE$weatcher, description=DESC$date_weatcher)
+	public static final String DATE$weatcher                = "${date.weatcher}";
 	public static final String DESC$amont_speed_wind        = "${desc.amont.speed.wind}";
 	public static final String DESC$amount_device_connected = "${desc.amount.device.connected}";
 	public static final String DESC$amount_humidit          = "${desc.amount.humidit}";
@@ -41,6 +44,7 @@ public interface IConsts {
 	public static final String DESC$date_hour_sunrise       = "${desc.date.hour.sunrise}";
 	public static final String DESC$date_hour_sunset        = "${desc.date.hour.sunset}";
 	public static final String DESC$date_update             = "${desc.date.update}";
+	public static final String DESC$date_weatcher           = "${desc.date.weatcher}";
 	public static final String DESC$describe_weather        = "${desc.describe.weather}";
 	public static final String DESC$id_device               = "${desc.id.device}";
 	public static final String DESC$info_main               = "${desc.info.main}";

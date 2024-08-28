@@ -28,11 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 public class WeatherService extends MService {
 
 	private static final String CACHE_WEATCHER_KEY = "cache_weatcher_key";
-	
 
 	@Autowired
 	private MWeatherService weatherService;
-	
+
 	@Autowired
 	private CacheService cacheService;
 
@@ -47,7 +46,8 @@ public class WeatherService extends MService {
 		MWeather weather = weatherService.getMWeather(geo.getLatitude(), geo.getLongitude());
 		DtoWeatcherData data = new DtoWeatcherData();
 		data.setGeolocation(geo);
-		data.setWeather(weather);;
+		data.setWeather(weather);
+		;
 		return data;
 	}
 
@@ -56,7 +56,7 @@ public class WeatherService extends MService {
 	public void autoResetCache() {
 		log.info("reset cache");
 	}
-	
+
 	@GraphQLQuery(name = AMOUNT$temperature, description = DESC$amount_temperature)
 	public BigDecimal getTemperature(@GraphQLContext DtoWeatcherData data) {
 		try {
@@ -84,8 +84,8 @@ public class WeatherService extends MService {
 			return BigDecimal.ZERO;
 		}
 	}
-	
-	@GraphQLQuery(name=INFO$weather, description=DESC$info_weather)
+
+	@GraphQLQuery(name = INFO$weather, description = DESC$info_weather)
 	public String getWeacherDetails(@GraphQLContext DtoWeatcherData data) {
 		String detail = "";
 		try {
@@ -95,8 +95,8 @@ public class WeatherService extends MService {
 		}
 		return detail;
 	}
-	
-	@GraphQLQuery(name=CODE$icon, description=DESC$code_icon)
+
+	@GraphQLQuery(name = CODE$icon, description = DESC$code_icon)
 	public String getWeacherIconRef(@GraphQLContext DtoWeatcherData data) {
 		String detail = "";
 		try {
@@ -106,9 +106,9 @@ public class WeatherService extends MService {
 		}
 		return detail;
 	}
-	
+
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name=DATE$hour_sunset, description=DESC$date_hour_sunset)
+	@GraphQLQuery(name = DATE$hour_sunset, description = DESC$date_hour_sunset)
 	public Long getDateSunset(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getDateSunSet();
@@ -116,9 +116,9 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
+
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name=DATE$hour_sunrise, description=DESC$date_hour_sunrise)
+	@GraphQLQuery(name = DATE$hour_sunrise, description = DESC$date_hour_sunrise)
 	public Long getDateSunrise(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getDateSunRise();
@@ -126,8 +126,8 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	@GraphQLQuery(name=AMONT$speed_wind, description=DESC$amont_speed_wind)
+
+	@GraphQLQuery(name = AMONT$speed_wind, description = DESC$amont_speed_wind)
 	public BigDecimal getSpeedWind(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getSpeedWind();
@@ -135,8 +135,8 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	 @GraphQLQuery(name=AMOUNT$humidit, description=DESC$amount_humidit)
+
+	@GraphQLQuery(name = AMOUNT$humidit, description = DESC$amount_humidit)
 	public BigDecimal getHumidity(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getHumidity();
@@ -144,8 +144,8 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	@GraphQLQuery(name=INFO$main, description=DESC$info_main)
+
+	@GraphQLQuery(name = INFO$main, description = DESC$info_main)
 	public String getMain(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getWeather().get(0).getMain();
@@ -153,8 +153,8 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	 @GraphQLQuery(name=NAME$city, description=DESC$name_city)
+
+	@GraphQLQuery(name = NAME$city, description = DESC$name_city)
 	public String getCityNameWeatcher(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getGeolocation().getCity();
@@ -162,5 +162,15 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
+
+	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@GraphQLQuery(name=DATE$weatcher, description=DESC$date_weatcher)
+	public Long getDateWeatcher(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getDateWeather();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }
