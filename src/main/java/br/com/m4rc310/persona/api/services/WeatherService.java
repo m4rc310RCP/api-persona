@@ -130,7 +130,8 @@ public class WeatherService extends MService {
 	@GraphQLQuery(name = AMONT$speed_wind, description = DESC$amont_speed_wind)
 	public BigDecimal getSpeedWind(@GraphQLContext DtoWeatcherData data) {
 		try {
-			return data.getWeather().getCurrent().getSpeedWind();
+			BigDecimal multi = BigDecimal.valueOf(3.6);
+			return data.getWeather().getCurrent().getSpeedWind().multiply(multi);
 		} catch (Exception e) {
 			return null;
 		}
