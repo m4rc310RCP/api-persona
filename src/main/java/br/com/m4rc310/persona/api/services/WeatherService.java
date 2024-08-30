@@ -2,7 +2,6 @@ package br.com.m4rc310.persona.api.services;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +52,9 @@ public class WeatherService extends MService {
 		data.setGeolocation(geo);
 		data.setWeather(weather);
 		data.setAlerts(new ArrayList<>());
-		
+
 		List<MWeatherAlert> alerts = weather.getAlerts();
-				
+
 		if (alerts != null) {
 			alerts.forEach(alert -> {
 				WearcherAlert wa = new WearcherAlert();
@@ -63,7 +62,7 @@ public class WeatherService extends MService {
 				data.getAlerts().add(wa);
 			});
 		}
-		
+
 		return data;
 	}
 
@@ -77,6 +76,15 @@ public class WeatherService extends MService {
 	public BigDecimal getTemperature(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getTemperature();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@GraphQLQuery(name = AMOUNT$feels_like, description = DESC$amount_feels_like)
+	public BigDecimal getFeelsLike(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getWeather().getCurrent().getFeelsLike();
 		} catch (Exception e) {
 			return null;
 		}
@@ -181,7 +189,7 @@ public class WeatherService extends MService {
 	}
 
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name=DATE$weatcher, description=DESC$date_weatcher)
+	@GraphQLQuery(name = DATE$weatcher, description = DESC$date_weatcher)
 	public Long getDateWeatcher(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getWeather().getCurrent().getDateWeather();
@@ -189,13 +197,13 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	@GraphQLQuery(name=LIST$alerts, description=DESC$list_alerts)
-	public List<WearcherAlert> listAlert(@GraphQLContext DtoWeatcherData data){
+
+	@GraphQLQuery(name = LIST$alerts, description = DESC$list_alerts)
+	public List<WearcherAlert> listAlert(@GraphQLContext DtoWeatcherData data) {
 		return data.getAlerts();
 	}
-	
-	@GraphQLQuery(name=NAME$sender, description=DESC$name_sender)
+
+	@GraphQLQuery(name = NAME$sender, description = DESC$name_sender)
 	public String getAlertSender(@GraphQLContext WearcherAlert alert) {
 		try {
 			return alert.getWeatherAlert().getSender();
@@ -203,8 +211,8 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	@GraphQLQuery(name=INFO$event, description=DESC$info_event)
+
+	@GraphQLQuery(name = INFO$event, description = DESC$info_event)
 	public String getAlertEvent(@GraphQLContext WearcherAlert alert) {
 		try {
 			return alert.getWeatherAlert().getEvent();
@@ -212,8 +220,8 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	@GraphQLQuery(name=INFO$description, description=DESC$info_description)
+
+	@GraphQLQuery(name = INFO$description, description = DESC$info_description)
 	public String getAlertDescription(@GraphQLContext WearcherAlert alert) {
 		try {
 			return alert.getWeatherAlert().getDescription();
@@ -223,7 +231,7 @@ public class WeatherService extends MService {
 	}
 
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name=DATE$init, description=DESC$date_init)
+	@GraphQLQuery(name = DATE$init, description = DESC$date_init)
 	public Long getAlertDateStart(@GraphQLContext WearcherAlert alert) {
 		try {
 			return alert.getWeatherAlert().getDateStart();
@@ -231,9 +239,9 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
+
 	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
-	@GraphQLQuery(name=DATE$end, description=DESC$date_end)
+	@GraphQLQuery(name = DATE$end, description = DESC$date_end)
 	public Long getAlertDateEnd(@GraphQLContext WearcherAlert alert) {
 		try {
 			return alert.getWeatherAlert().getDateEnd();
@@ -241,8 +249,5 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
-	
-	
-	
 
 }
