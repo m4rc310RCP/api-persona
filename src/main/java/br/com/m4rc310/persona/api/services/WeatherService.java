@@ -1,6 +1,9 @@
 package br.com.m4rc310.persona.api.services;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -12,7 +15,9 @@ import org.springframework.stereotype.Service;
 import br.com.m4rc310.gql.location.dto.DtoGeolocation;
 import br.com.m4rc310.gql.mappers.annotations.MDate;
 import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
+import br.com.m4rc310.persona.api.dto.weather.WearcherAlert;
 import br.com.m4rc310.weather.dto.MWeather;
+import br.com.m4rc310.weather.dto.MWeatherAlert;
 import br.com.m4rc310.weather.dto.MWeatherCurrent.Rain;
 import br.com.m4rc310.weather.dto.MWeatherCurrentWeather;
 import br.com.m4rc310.weather.services.MWeatherService;
@@ -47,7 +52,18 @@ public class WeatherService extends MService {
 		DtoWeatcherData data = new DtoWeatcherData();
 		data.setGeolocation(geo);
 		data.setWeather(weather);
-		;
+		data.setAlerts(new ArrayList<>());
+		
+		List<MWeatherAlert> alerts = weather.getAlerts();
+				
+		if (alerts != null) {
+			alerts.forEach(alert -> {
+				WearcherAlert wa = new WearcherAlert();
+				wa.setWeatherAlert(alert);
+				data.getAlerts().add(wa);
+			});
+		}
+		
 		return data;
 	}
 
@@ -173,5 +189,60 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
+	
+	@GraphQLQuery(name=LIST$alerts, description=DESC$list_alerts)
+	public List<WearcherAlert> listAlert(@GraphQLContext DtoWeatcherData data){
+		return data.getAlerts();
+	}
+	
+	@GraphQLQuery(name=NAME$sender, description=DESC$name_sender)
+	public String getAlertSender(@GraphQLContext WearcherAlert alert) {
+		try {
+			return alert.getWeatherAlert().getSender();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@GraphQLQuery(name=INFO$event, description=DESC$info_event)
+	public String getAlertEvent(@GraphQLContext WearcherAlert alert) {
+		try {
+			return alert.getWeatherAlert().getEvent();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@GraphQLQuery(name=INFO$description, description=DESC$info_description)
+	public String getAlertDescription(@GraphQLContext WearcherAlert alert) {
+		try {
+			return alert.getWeatherAlert().getDescription();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@GraphQLQuery(name=DATE$init, description=DESC$date_init)
+	public Long getAlertDateStart(@GraphQLContext WearcherAlert alert) {
+		try {
+			return alert.getWeatherAlert().getDateStart();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@GraphQLQuery(name=DATE$end, description=DESC$date_end)
+	public Long getAlertDateEnd(@GraphQLContext WearcherAlert alert) {
+		try {
+			return alert.getWeatherAlert().getDateEnd();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
+	
 
 }

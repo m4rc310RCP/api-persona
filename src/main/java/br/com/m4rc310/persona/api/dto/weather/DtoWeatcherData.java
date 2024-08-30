@@ -1,5 +1,7 @@
 package br.com.m4rc310.persona.api.dto.weather;
 
+import java.util.List;
+
 import br.com.m4rc310.gql.location.dto.DtoGeolocation;
 import br.com.m4rc310.weather.dto.MWeather;
 import io.leangen.graphql.annotations.GraphQLIgnore;
@@ -16,4 +18,7 @@ public class DtoWeatcherData {
   
   @GraphQLIgnore
   private DtoGeolocation geolocation;
+  
+  @GraphQLIgnore
+  private List<WearcherAlert> alerts;
 }

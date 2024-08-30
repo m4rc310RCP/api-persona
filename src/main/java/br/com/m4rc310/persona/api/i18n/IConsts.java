@@ -24,11 +24,17 @@ public interface IConsts {
 // @GraphQLQuery(name=CODE$icon, description=DESC$code_icon)
 	public static final String CODE$icon                    = "${code.icon}";
 //--------------------------------------------------
+// @GraphQLQuery(name=DATE$end, description=DESC$date_end)
+	public static final String DATE$end                     = "${date.end}";
+//--------------------------------------------------
 // @GraphQLQuery(name=DATE$hour_sunrise, description=DESC$date_hour_sunrise)
 	public static final String DATE$hour_sunrise            = "${date.hour.sunrise}";
 //--------------------------------------------------
 // @GraphQLQuery(name=DATE$hour_sunset, description=DESC$date_hour_sunset)
 	public static final String DATE$hour_sunset             = "${date.hour.sunset}";
+//--------------------------------------------------
+// @GraphQLQuery(name=DATE$init, description=DESC$date_init)
+	public static final String DATE$init                    = "${date.init}";
 //--------------------------------------------------
 // @GraphQLQuery(name=DATE$update, description=DESC$date_update)
 	public static final String DATE$update                  = "${date.update}";
@@ -41,15 +47,21 @@ public interface IConsts {
 	public static final String DESC$amount_rain             = "${desc.amount.rain}";
 	public static final String DESC$amount_temperature      = "${desc.amount.temperature}";
 	public static final String DESC$code_icon               = "${desc.code.icon}";
+	public static final String DESC$date_end                = "${desc.date.end}";
 	public static final String DESC$date_hour_sunrise       = "${desc.date.hour.sunrise}";
 	public static final String DESC$date_hour_sunset        = "${desc.date.hour.sunset}";
+	public static final String DESC$date_init               = "${desc.date.init}";
 	public static final String DESC$date_update             = "${desc.date.update}";
 	public static final String DESC$date_weatcher           = "${desc.date.weatcher}";
 	public static final String DESC$describe_weather        = "${desc.describe.weather}";
 	public static final String DESC$id_device               = "${desc.id.device}";
+	public static final String DESC$info_description        = "${desc.info.description}";
+	public static final String DESC$info_event              = "${desc.info.event}";
 	public static final String DESC$info_main               = "${desc.info.main}";
 	public static final String DESC$info_weather            = "${desc.info.weather}";
+	public static final String DESC$list_alerts             = "${desc.list.alerts}";
 	public static final String DESC$name_city               = "${desc.name.city}";
+	public static final String DESC$name_sender             = "${desc.name.sender}";
 	public static final String DESC$number_device_connected = "${desc.number.device.connected}";
 	public static final String DESC$number_ip_client        = "${desc.number.ip.client}";
 	public static final String DESC$number_lat              = "${desc.number.lat}";
@@ -64,9 +76,16 @@ public interface IConsts {
 	public static final String DESC$subscription_weacher    = "${desc.subscription.weacher}";
 	public static final String DESC$type_heart_beat         = "${desc.type.heart.beat}";
 	public static final String DESC$type_service_info       = "${desc.type.service.info}";
+	public static final String DESC$type_weatcher_alert     = "${desc.type.weatcher.alert}";
 //--------------------------------------------------
 // @GraphQLQuery(name=ID$device, description=DESC$id_device)
 	public static final String ID$device                    = "${id.device}";
+//--------------------------------------------------
+// @GraphQLQuery(name=INFO$description, description=DESC$info_description)
+	public static final String INFO$description             = "${info.description}";
+//--------------------------------------------------
+// @GraphQLQuery(name=INFO$event, description=DESC$info_event)
+	public static final String INFO$event                   = "${info.event}";
 //--------------------------------------------------
 // @GraphQLQuery(name=INFO$main, description=DESC$info_main)
 	public static final String INFO$main                    = "${info.main}";
@@ -74,8 +93,14 @@ public interface IConsts {
 // @GraphQLQuery(name=INFO$weather, description=DESC$info_weather)
 	public static final String INFO$weather                 = "${info.weather}";
 //--------------------------------------------------
+// @GraphQLQuery(name=LIST$alerts, description=DESC$list_alerts)
+	public static final String LIST$alerts                  = "${list.alerts}";
+//--------------------------------------------------
 // @GraphQLQuery(name=NAME$city, description=DESC$name_city)
 	public static final String NAME$city                    = "${name.city}";
+//--------------------------------------------------
+// @GraphQLQuery(name=NAME$sender, description=DESC$name_sender)
+	public static final String NAME$sender                  = "${name.sender}";
 //--------------------------------------------------
 // @GraphQLQuery(name=NUMBER$ip_client, description=DESC$number_ip_client)
 	public static final String NUMBER$ip_client             = "${number.ip.client}";
@@ -115,5 +140,8 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLType(name=TYPE$service_info, description=DESC$type_service_info)
 	public static final String TYPE$service_info            = "${type.service.info}";
+//--------------------------------------------------
+// @GraphQLType(name=TYPE$weatcher_alert, description=DESC$type_weatcher_alert)
+	public static final String TYPE$weatcher_alert          = "${type.weatcher.alert}";
 }
 
