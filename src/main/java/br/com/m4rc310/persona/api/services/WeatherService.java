@@ -19,6 +19,7 @@ import br.com.m4rc310.weather.dto.MWeather;
 import br.com.m4rc310.weather.dto.MWeatherAlert;
 import br.com.m4rc310.weather.dto.MWeatherCurrent.Rain;
 import br.com.m4rc310.weather.dto.MWeatherCurrentWeather;
+import br.com.m4rc310.weather.dto.MWeatherDaily;
 import br.com.m4rc310.weather.services.MWeatherService;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class WeatherService extends MService {
 
 	private static final String CACHE_WEATCHER_KEY = "cache_weatcher_key";
+	private static final String DATE_ISO_MASK = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
 
 	@Autowired
 	private MWeatherService weatherService;
@@ -131,7 +133,7 @@ public class WeatherService extends MService {
 		return detail;
 	}
 
-	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@MDate(unixFormat = true, value = DATE_ISO_MASK)
 	@GraphQLQuery(name = DATE$hour_sunset, description = DESC$date_hour_sunset)
 	public Long getDateSunset(@GraphQLContext DtoWeatcherData data) {
 		try {
@@ -141,7 +143,7 @@ public class WeatherService extends MService {
 		}
 	}
 
-	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@MDate(unixFormat = true, value = DATE_ISO_MASK)
 	@GraphQLQuery(name = DATE$hour_sunrise, description = DESC$date_hour_sunrise)
 	public Long getDateSunrise(@GraphQLContext DtoWeatcherData data) {
 		try {
@@ -188,7 +190,16 @@ public class WeatherService extends MService {
 		}
 	}
 
-	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@GraphQLQuery(name = "${name.state}")
+	public String getStateName(@GraphQLContext DtoWeatcherData data) {
+		try {
+			return data.getGeolocation().getRegion();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@MDate(unixFormat = true, value = DATE_ISO_MASK)
 	@GraphQLQuery(name = DATE$weatcher, description = DESC$date_weatcher)
 	public Long getDateWeatcher(@GraphQLContext DtoWeatcherData data) {
 		try {
@@ -230,7 +241,7 @@ public class WeatherService extends MService {
 		}
 	}
 
-	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@MDate(unixFormat = true, value = DATE_ISO_MASK)
 	@GraphQLQuery(name = DATE$init, description = DESC$date_init)
 	public Long getAlertDateStart(@GraphQLContext WearcherAlert alert) {
 		try {
@@ -240,7 +251,7 @@ public class WeatherService extends MService {
 		}
 	}
 
-	@MDate(unixFormat = true, value = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+	@MDate(unixFormat = true, value = DATE_ISO_MASK)
 	@GraphQLQuery(name = DATE$end, description = DESC$date_end)
 	public Long getAlertDateEnd(@GraphQLContext WearcherAlert alert) {
 		try {
@@ -249,5 +260,29 @@ public class WeatherService extends MService {
 			return null;
 		}
 	}
+	
+	
+	@GraphQLQuery(name=PERCENT$pop_daily, description=DESC$percent_pop_daily)
+	public BigDecimal dailyPop (@GraphQLContext DtoWeatcherData data) {
+		try {
+			MWeather weather = data.getWeather();
+			MWeatherDaily daily = weather.getDaily().get(0);
+			return daily.getPop().multiply(BigDecimal.valueOf(100));	
+		} catch (Exception e) {
+			return BigDecimal.ZERO;
+		}
+	}
+
+	@GraphQLQuery(name=AMOUNT$rain_daily, description=DESC$amount_rain_daily)
+	public BigDecimal dailyRain (@GraphQLContext DtoWeatcherData data) {
+		try {
+			MWeather weather = data.getWeather();
+			MWeatherDaily daily = weather.getDaily().get(0);
+			return daily.getRain();		
+		} catch (Exception e) {
+			return BigDecimal.ZERO;
+		}
+	}
+	
 
 }

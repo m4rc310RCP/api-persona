@@ -21,6 +21,9 @@ public interface IConsts {
 // @GraphQLQuery(name=AMOUNT$rain, description=DESC$amount_rain)
 	public static final String AMOUNT$rain                  = "${amount.rain}";
 //--------------------------------------------------
+// @GraphQLQuery(name=AMOUNT$rain_daily, description=DESC$amount_rain_daily)
+	public static final String AMOUNT$rain_daily            = "${amount.rain.daily}";
+//--------------------------------------------------
 // @GraphQLQuery(name=AMOUNT$temperature, description=DESC$amount_temperature)
 	public static final String AMOUNT$temperature           = "${amount.temperature}";
 //--------------------------------------------------
@@ -48,7 +51,9 @@ public interface IConsts {
 	public static final String DESC$amount_device_connected = "${desc.amount.device.connected}";
 	public static final String DESC$amount_feels_like       = "${desc.amount.feels.like}";
 	public static final String DESC$amount_humidit          = "${desc.amount.humidit}";
+	public static final String DESC$amount_pop              = "${desc.amount.pop}";
 	public static final String DESC$amount_rain             = "${desc.amount.rain}";
+	public static final String DESC$amount_rain_daily       = "${desc.amount.rain.daily}";
 	public static final String DESC$amount_temperature      = "${desc.amount.temperature}";
 	public static final String DESC$code_icon               = "${desc.code.icon}";
 	public static final String DESC$date_end                = "${desc.date.end}";
@@ -66,12 +71,14 @@ public interface IConsts {
 	public static final String DESC$list_alerts             = "${desc.list.alerts}";
 	public static final String DESC$name_city               = "${desc.name.city}";
 	public static final String DESC$name_sender             = "${desc.name.sender}";
+	public static final String DESC$name_state              = "${desc.name.state}";
 	public static final String DESC$number_device_connected = "${desc.number.device.connected}";
 	public static final String DESC$number_ip_client        = "${desc.number.ip.client}";
 	public static final String DESC$number_lat              = "${desc.number.lat}";
 	public static final String DESC$number_lon              = "${desc.number.lon}";
 	public static final String DESC$number_services         = "${desc.number.services}";
 	public static final String DESC$percent_clouds          = "${desc.percent.clouds}";
+	public static final String DESC$percent_pop_daily       = "${desc.percent.pop.daily}";
 	public static final String DESC$query_device_connected  = "${desc.query.device.connected}";
 	public static final String DESC$query_service_info      = "${desc.query.service.info}";
 	public static final String DESC$query_test              = "${desc.query.test}";
@@ -106,6 +113,9 @@ public interface IConsts {
 // @GraphQLQuery(name=NAME$sender, description=DESC$name_sender)
 	public static final String NAME$sender                  = "${name.sender}";
 //--------------------------------------------------
+// @GraphQLQuery(name=NAME$state, description=DESC$name_state)
+	public static final String NAME$state                   = "${name.state}";
+//--------------------------------------------------
 // @GraphQLQuery(name=NUMBER$ip_client, description=DESC$number_ip_client)
 	public static final String NUMBER$ip_client             = "${number.ip.client}";
 //--------------------------------------------------
@@ -120,6 +130,9 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLQuery(name=PERCENT$clouds, description=DESC$percent_clouds)
 	public static final String PERCENT$clouds               = "${percent.clouds}";
+//--------------------------------------------------
+// @GraphQLQuery(name=PERCENT$pop_daily, description=DESC$percent_pop_daily)
+	public static final String PERCENT$pop_daily            = "${percent.pop.daily}";
 //--------------------------------------------------
 // @GraphQLQuery(name=QUERY$device_connected, description=DESC$query_device_connected)
 	public static final String QUERY$device_connected       = "${query.device.connected}";
