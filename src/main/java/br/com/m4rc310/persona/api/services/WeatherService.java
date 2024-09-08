@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.m4rc310.gql.location.dto.DtoGeolocation;
 import br.com.m4rc310.gql.mappers.annotations.MDate;
+import br.com.m4rc310.persona.api.dto.DtoDailyWeather;
 import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
 import br.com.m4rc310.persona.api.dto.weather.WearcherAlert;
 import br.com.m4rc310.weather.dto.MWeather;
@@ -33,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class WeatherService extends MService {
 
 	private static final String CACHE_WEATCHER_KEY = "cache_weatcher_key";
-	private static final String DATE_ISO_MASK = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
+	
 
 	@Autowired
 	private MWeatherService weatherService;
@@ -190,7 +191,7 @@ public class WeatherService extends MService {
 		}
 	}
 
-	@GraphQLQuery(name = "${name.state}")
+	@GraphQLQuery(name = NAME$state, description = DESC$name_state)
 	public String getStateName(@GraphQLContext DtoWeatcherData data) {
 		try {
 			return data.getGeolocation().getRegion();
@@ -282,6 +283,20 @@ public class WeatherService extends MService {
 		} catch (Exception e) {
 			return BigDecimal.ZERO;
 		}
+	}
+	
+	@GraphQLQuery(name = LIST$weather_daily, description = DESC$list_weather_daily)
+	public List<DtoDailyWeather> getListDaily(@GraphQLContext DtoWeatcherData data){
+		List<DtoDailyWeather> list = new ArrayList<>();
+		try {
+			data.getWeather().getDaily().forEach(daily -> {
+				DtoDailyWeather dailyWeather = new DtoDailyWeather();
+				dailyWeather.setDaily(daily);
+				list.add(dailyWeather);
+			});
+		} catch (Exception e) {
+		}
+		return list;
 	}
 	
 
