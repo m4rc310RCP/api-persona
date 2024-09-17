@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.m4rc310.persona.api.dto.DtoHeartBeat;
 import br.com.m4rc310.persona.api.dto.DtoServiceInfo;
 import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
+import br.com.m4rc310.persona.api.services.weather.WeatherService;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;

@@ -1,4 +1,4 @@
-package br.com.m4rc310.persona.api.services;
+package br.com.m4rc310.persona.api.services.weather;
 
 import java.math.BigDecimal;
 
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.m4rc310.gql.mappers.annotations.MDate;
 import br.com.m4rc310.persona.api.dto.DtoDailyWeather;
+import br.com.m4rc310.persona.api.services.MService;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
