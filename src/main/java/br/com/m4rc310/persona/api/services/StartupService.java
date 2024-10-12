@@ -14,6 +14,7 @@ import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
 import br.com.m4rc310.persona.api.services.weather.WeatherService;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
+import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.annotations.GraphQLSubscription;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
@@ -31,9 +32,17 @@ public class StartupService extends MService {
 
 	@Autowired
 	private WeatherService weatherService;
+	
+	
 
 	@GraphQLQuery(name = QUERY$test, description = DESC$query_test)
 	public String test() {
+		return "OK";
+	}
+
+	@GraphQLMutation(name = "${mudatation.send.email}")
+	public String sendEmail() {
+		emailService.sendEmail("marcelo.utfpr@me.com", WEATCHER_KEY, HEART_BEAT_KEY);
 		return "OK";
 	}
 
