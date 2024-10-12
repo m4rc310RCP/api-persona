@@ -42,7 +42,7 @@ public class StartupService extends MService {
 
 	@GraphQLMutation(name = "${mudatation.send.email}")
 	public String sendEmail() {
-		emailService.sendEmail("marcelo.utfpr@me.com", WEATCHER_KEY, HEART_BEAT_KEY);
+		sendEmail("marcelo.utfpr@me.com", WEATCHER_KEY, HEART_BEAT_KEY);
 		return "OK";
 	}
 

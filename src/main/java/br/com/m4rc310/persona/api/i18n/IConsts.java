@@ -101,6 +101,7 @@ public interface IConsts {
 	public static final String DESC$list_hourly_weather     = "${desc.list.hourly.weather}";
 	public static final String DESC$list_weather_daily      = "${desc.list.weather.daily}";
 	public static final String DESC$list_weather_minutely   = "${desc.list.weather.minutely}";
+	public static final String DESC$mudatation_send_email   = "${desc.mudatation.send.email}";
 	public static final String DESC$name_city               = "${desc.name.city}";
 	public static final String DESC$name_sender             = "${desc.name.sender}";
 	public static final String DESC$name_state              = "${desc.name.state}";
@@ -154,6 +155,9 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLQuery(name=LIST$weather_minutely, description=DESC$list_weather_minutely)
 	public static final String LIST$weather_minutely        = "${list.weather.minutely}";
+//--------------------------------------------------
+// @GraphQLQuery(name=MUDATATION$send_email, description=DESC$mudatation_send_email)
+	public static final String MUDATATION$send_email        = "${mudatation.send.email}";
 //--------------------------------------------------
 // @GraphQLQuery(name=NAME$city, description=DESC$name_city)
 	public static final String NAME$city                    = "${name.city}";

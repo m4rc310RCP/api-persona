@@ -31,8 +31,9 @@
 		<url />
 	</scm>
 	<properties>
-<!--		<br-com-m4rc310-starter-version>1.0.1-SNAPSHOT</br-com-m4rc310-starter-version>-->
-		<br-com-m4rc310-starter-version>1.0.40</br-com-m4rc310-starter-version> 
+		<!--
+		<br-com-m4rc310-starter-version>1.0.1-SNAPSHOT</br-com-m4rc310-starter-version>-->
+		<br-com-m4rc310-starter-version>1.0.40</br-com-m4rc310-starter-version>
 		<java.version>17</java.version>
 	</properties>
 
@@ -62,8 +63,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
 		</dependency>
 
 		<dependency>
