@@ -89,7 +89,7 @@ public class StartupService extends MService {
 	}
 
 	@GraphQLQuery(name = AMOUNT$device_connected, description = DESC$amount_device_connected)
-	public Integer getConnectedDevices(@GraphQLContext DtoServiceInfo info) {
+	public Integer getConnectedDevices(@GraphQLContext DtoHeartBeat info) {
 		return flux.getSizeRegistries(DtoHeartBeat.class);
 	}
 
