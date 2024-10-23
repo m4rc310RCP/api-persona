@@ -7,9 +7,19 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.m4rc310.persona.api.db.models.termometry.TermometryDeviceRepository;
+import br.com.m4rc310.persona.api.db.models.unity.UnityRepository;
 import br.com.m4rc310.persona.api.i18n.IConsts;
 
 public class MService extends br.com.m4rc310.gql.services.MService implements IConsts {
+	
+	@Autowired
+	protected TermometryDeviceRepository termometryDeviceRepository;
+	
+	@Autowired
+	protected UnityRepository unityRepository;
 
 	// Replace FROM with your "From" address.
 	// This address must be added to Approved Senders in the console.
@@ -119,6 +129,12 @@ public class MService extends br.com.m4rc310.gql.services.MService implements IC
 //		} catch (MessagingException e) {
 //			e.printStackTrace();
 //		}
-
 	}
+	
+	protected <T> void cloneAtoB(T a, T b) {
+		if (a != null & b != null) {
+			flux.cloneAtoB(a, b);
+		}
+	}
+	
 }

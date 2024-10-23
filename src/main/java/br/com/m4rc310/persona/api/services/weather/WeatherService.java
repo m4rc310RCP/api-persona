@@ -1,6 +1,5 @@
 package br.com.m4rc310.persona.api.services.weather;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,19 +11,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import br.com.m4rc310.gql.location.dto.DtoGeolocation;
-import br.com.m4rc310.gql.mappers.annotations.MDate;
-import br.com.m4rc310.persona.api.dto.DtoDailyWeather;
 import br.com.m4rc310.persona.api.dto.weather.DtoWeatcherData;
 import br.com.m4rc310.persona.api.dto.weather.WearcherAlert;
 import br.com.m4rc310.persona.api.services.CacheService;
 import br.com.m4rc310.persona.api.services.MService;
 import br.com.m4rc310.weather.dto.MWeather;
 import br.com.m4rc310.weather.dto.MWeatherAlert;
-import br.com.m4rc310.weather.dto.MWeatherCurrent.Rain;
-import br.com.m4rc310.weather.dto.MWeatherCurrentWeather;
-import br.com.m4rc310.weather.dto.MWeatherDaily;
 import br.com.m4rc310.weather.services.MWeatherService;
-import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import lombok.extern.slf4j.Slf4j;
