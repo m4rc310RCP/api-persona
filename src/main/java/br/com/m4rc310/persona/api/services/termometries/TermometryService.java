@@ -16,12 +16,15 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.annotations.GraphQLSubscription;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @Service
 @GraphQLApi
 @EnableScheduling
 public class TermometryService extends MService {
+	
+	public static final String KEY_UNLINKED_TERMOMETRIES = "key_unlinked_termometries";
 
 	@GraphQLQuery(name = INDICATOR$registry, description = DESC$indicator_registry)
 	public boolean inUnityLinked(@GraphQLContext TermometryDevice device) {
@@ -50,6 +53,11 @@ public class TermometryService extends MService {
 		if (flux.inPublish(TermometryDevice.class, serial)) {
 			flux.callPublish(serial, device);			
 		}
+		try {
+			flux.callListPublish(TermometryDevice.class, KEY_UNLINKED_TERMOMETRIES, listUnlinkedTermometryDevice());
+		} catch (Exception e) {
+			
+		}
 		return device;
 	}
 	
@@ -62,6 +70,13 @@ public class TermometryService extends MService {
 		if (flux.inPublish(TermometryDevice.class, serial)) {
 			flux.callPublish(serial, device);			
 		}
+		
+		try {
+			flux.callListPublish(TermometryDevice.class, KEY_UNLINKED_TERMOMETRIES, listUnlinkedTermometryDevice());
+		} catch (Exception e) {
+			
+		}
+		
 		return device;
 	}
 	
@@ -85,7 +100,13 @@ public class TermometryService extends MService {
 		}
 	}
 	
-	@GraphQLSubscription(name = "${subscription.request.device.unity.link}")
+	@GraphQLSubscription(name=SUBSCRIPTION$unlinked_termometries, description=DESC$subscription_unlinked_termometries)
+	public Flux<List<TermometryDevice>> listUnlinkedTermometries() {
+		return flux.publishList(TermometryDevice.class, KEY_UNLINKED_TERMOMETRIES, listUnlinkedTermometryDevice());
+	}
+	
+	
+	@GraphQLSubscription(name=SUBSCRIPTION$request_device_unity_link, description=DESC$subscription_request_device_unity_link)
 	public Publisher<TermometryDevice> requestLinkDeviceUnity(@GraphQLArgument(name=NUMBER$serial, description=DESC$number_serial) String serial){
 		return flux.publish(TermometryDevice.class, serial);
 	}

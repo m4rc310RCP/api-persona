@@ -132,6 +132,7 @@ public interface IConsts {
 	public static final String DESC$query_weather                          = "${desc.query.weather}";
 	public static final String DESC$subscription_heart_beat                = "${desc.subscription.heart.beat}";
 	public static final String DESC$subscription_request_device_unity_link = "${desc.subscription.request.device.unity.link}";
+	public static final String DESC$subscription_unlinked_termometries     = "${desc.subscription.unlinked.termometries}";
 	public static final String DESC$subscription_weacher                   = "${desc.subscription.weacher}";
 	public static final String DESC$type_daily_weather                     = "${desc.type.daily.weather}";
 	public static final String DESC$type_heart_beat                        = "${desc.type.heart.beat}";
@@ -264,6 +265,9 @@ public interface IConsts {
 //--------------------------------------------------
 // @GraphQLSubscription(name=SUBSCRIPTION$request_device_unity_link, description=DESC$subscription_request_device_unity_link)
 	public static final String SUBSCRIPTION$request_device_unity_link      = "${subscription.request.device.unity.link}";
+//--------------------------------------------------
+// @GraphQLSubscription(name=SUBSCRIPTION$unlinked_termometries, description=DESC$subscription_unlinked_termometries)
+	public static final String SUBSCRIPTION$unlinked_termometries          = "${subscription.unlinked.termometries}";
 //--------------------------------------------------
 // @GraphQLSubscription(name=SUBSCRIPTION$weacher, description=DESC$subscription_weacher)
 	public static final String SUBSCRIPTION$weacher                        = "${subscription.weacher}";
