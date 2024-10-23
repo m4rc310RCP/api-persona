@@ -39,6 +39,9 @@ public class TermometryService extends MService {
 	public TermometryDevice storeDevice(@GraphQLArgument(name = FIELD$termometry_device) TermometryDevice device) {
 		TermometryDevice local = termometryDeviceRepository.findById(device.getSerialNumber()).orElse(device);
 		cloneAtoB(device, local);
+		
+		callUnlinkedTermometryDevice();
+		
 		return termometryDeviceRepository.saveAndFlush(local);
 	}
 
@@ -53,11 +56,9 @@ public class TermometryService extends MService {
 		if (flux.inPublish(TermometryDevice.class, serial)) {
 			flux.callPublish(serial, device);			
 		}
-		try {
-			flux.callListPublish(TermometryDevice.class, KEY_UNLINKED_TERMOMETRIES, listUnlinkedTermometryDevice());
-		} catch (Exception e) {
-			
-		}
+		
+		callUnlinkedTermometryDevice();
+		
 		return device;
 	}
 	
@@ -71,14 +72,19 @@ public class TermometryService extends MService {
 			flux.callPublish(serial, device);			
 		}
 		
+		callUnlinkedTermometryDevice();
+		
+		return device;
+	}
+	
+	private void callUnlinkedTermometryDevice() {
 		try {
 			flux.callListPublish(TermometryDevice.class, KEY_UNLINKED_TERMOMETRIES, listUnlinkedTermometryDevice());
 		} catch (Exception e) {
 			
 		}
-		
-		return device;
 	}
+	
 	
 	@GraphQLQuery(name=QUERY$unlinked_termometry_devices, description=DESC$query_unlinked_termometry_devices)
 	public List<TermometryDevice> listUnlinkedTermometryDevice(){
